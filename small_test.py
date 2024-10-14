@@ -2,9 +2,11 @@ import re
 import ftfy
 import nltk
 from nltk.corpus import words
+from nltk import tokenize, word_tokenize
 from nltk.stem import WordNetLemmatizer
 
 nltk.download('words')
+nltk.download('punkt_tab')
 nltk.download('omw-1.4')
 nltk.download('wordnet')
 
@@ -17,19 +19,22 @@ def remove_symbols(text):
     return re.sub(r'[^A-Za-z0-9\s.,!?\'"()\-]', '', text)
 
 def filter_non_english_rows(text):
-    words_list = text.split()
+    words_list = re.split(r'\s+|/', text)
     english_only_words = []
     for word in words_list:
-        # Strip punctuation from beginning and end, handle possessives like "life's"
-        clean_word = word.strip(".,!?\"'()[]{}").lower()
+        print(word)
+        # Keep the original word for proper nouns
+        original_word = word.strip(".,!?\"'()[]{}")
+        clean_word = original_word.lower()
         
         # Lemmatize to handle plurals, e.g., "stories" -> "story"
         base_word = lemmatizer.lemmatize(clean_word)
         
-        # Check if base or possessive form is in dictionary
         if (base_word in english_words or
             clean_word.rstrip("'s") in english_words or
-            clean_word in english_words):
+            clean_word in english_words or
+            original_word.istitle() or
+            "'" in original_word):  # Allow contractions with apostrophes like don't
             english_only_words.append(word)  # Keep original word with punctuation
 
     # Calculate English percentage and determine if row is mostly English
@@ -40,17 +45,35 @@ def filter_non_english_rows(text):
         return ' '.join(english_only_words)  # Return only English words
     else:
         return None  # Mark row for removal if below 30% English content
+    
+def add_space_after_punctuation(text):
+    text = re.sub(r'\s+([.!?])', r'\1', text) #remove space before a punctuation
+    text = re.sub(r'([.!?])([a-zA-Z])', r'\1 \2', text) #add space after punctuation
+    return text
 
-string = "Every life's a movie We got different stars and stories We got different nights and mornings.Â°â€¢â˜†Â°â€¢â˜†Â°â€¢â˜†Â°â€¢â˜†Â°â€¢â˜†Â°â€¢â˜†Â°â€¢â˜†â€¢"
+def remove_short_senteces(text):
+    if not isinstance(text, str) or text is None:
+        return ''
+    sentences = tokenize.sent_tokenize(text)
+    new_text = ''
+    for sentence in sentences:
+        if len(sentence.split()) >= 3:  # Keep only sentences with more than 3 actual words
+            new_text += sentence + ' '
+    return new_text.strip()
 
-new = ftfy.fix_text(string)
-print(new)
+string = "hi! hello there ?every life's a movie. We got different stars and stories. We got different nights and mornings.Â°â€¢â˜†Â°â€¢â˜†Â°â€¢â˜†Â°â€¢â˜†Â°â€¢â˜†Â°â€¢â˜†Â°â€¢â˜†â€¢"
+
+new = add_space_after_punctuation(string)
+new = ftfy.fix_text(new)
+print(f'Fixing characters: {new}')
 new2 = remove_symbols(new)
-print(new2)
-new3 = filter_non_english_rows(new2)
-print(new3)
+print(f'Symbols: {new2}')
+new3 = remove_short_senteces(new2)
+print(f'Short sentences: {new3}')
+new4 = filter_non_english_rows(new3)
+print(f'English words: {new4}')
 
-if "stories" in english_words:
+if 'Ciao' in english_words:
     print('yes')
 else:
     print('no')
