@@ -119,6 +119,7 @@ df = df.dropna(subset=['text']).reset_index(drop=True)
 
 # Display final DataFrame
 print("Processed DataFrame:")
+# First 20 rows
 print(df.head(20))
 
 df.to_csv('processed_dataset3.csv', index=False)
