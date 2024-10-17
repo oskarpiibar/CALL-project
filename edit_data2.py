@@ -38,7 +38,7 @@ english_words.update(cities)
 
 # Add language names
 languages = {
-    "english", "spanish", "french", "german", "chinese", "arabic", "russian",
+    "estonian", "english", "spanish", "french", "german", "chinese", "arabic", "russian",
     "japanese", "korean", "portuguese", "italian", "dutch", "turkish", "hindi",
     "bengali", "urdu", "swahili", "hebrew", "greek", "latin", "persian", "tamil", "thai"
 }
@@ -63,7 +63,7 @@ print(df.head(20))
 
 # Function to remove symbols
 def remove_symbols(text):
-    return re.sub(r'[^A-Za-z0-9\s.,!?\'"/\-]', '', text)
+    return re.sub(r'[^A-Za-z0-9\s.,:;!?\'"/\-]', '', text)
 
 def add_remove_space_near_puncuation(text):
     text = re.sub(r'\s+([.!?])', r'\1', text) #remove space before a punctuation
@@ -86,7 +86,7 @@ def filter_non_english_rows(text):
     english_only_words = []
     for word in words_list:
         # Keep the original word for proper nouns
-        original_word = word.strip(".,!?\"'()[]{}")
+        original_word = word.strip(".;:%,!?\"'()[]{}")
         clean_word = original_word.lower()
         
         # Lemmatize to handle plurals, e.g., "stories" -> "story"
