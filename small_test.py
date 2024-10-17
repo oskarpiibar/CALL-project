@@ -16,15 +16,14 @@ english_words = set(words.words())
 
 
 def remove_symbols(text):
-    return re.sub(r'[^A-Za-z0-9\s.,!?\'"()\-]', '', text)
+    return re.sub(r'[^A-Za-z0-9\s.,;:!?\'"()%\-]', '', text)
 
 def filter_non_english_rows(text):
     words_list = re.split(r'\s+|/', text)
     english_only_words = []
     for word in words_list:
-        print(word)
         # Keep the original word for proper nouns
-        original_word = word.strip(".,!?\"'()[]{}")
+        original_word = word.strip(".,%:;!?\"'()[]{}")
         clean_word = original_word.lower()
         
         # Lemmatize to handle plurals, e.g., "stories" -> "story"
@@ -34,6 +33,7 @@ def filter_non_english_rows(text):
             clean_word.rstrip("'s") in english_words or
             clean_word in english_words or
             original_word.istitle() or
+            str.isdigit(original_word) or
             "'" in original_word):  # Allow contractions with apostrophes like don't
             english_only_words.append(word)  # Keep original word with punctuation
 
@@ -61,7 +61,7 @@ def remove_short_senteces(text):
             new_text += sentence + ' '
     return new_text.strip()
 
-string = "hi! hello there ?every life's a movie. We got different stars and stories. We got different nights and mornings.Â°â€¢â˜†Â°â€¢â˜†Â°â€¢â˜†Â°â€¢â˜†Â°â€¢â˜†Â°â€¢â˜†Â°â€¢â˜†â€¢"
+string = "hi;hello there ?every life's a 50% : 50% movie. We got different stars and stories. We got different nights and mornings.Â°â€¢â˜†Â°â€¢â˜†Â°â€¢â˜†Â°â€¢â˜†Â°â€¢â˜†Â°â€¢â˜†Â°â€¢â˜†â€¢"
 
 new = add_space_after_punctuation(string)
 new = ftfy.fix_text(new)
