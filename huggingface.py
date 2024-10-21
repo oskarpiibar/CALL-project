@@ -12,3 +12,5 @@ df['correct_text'] = df['text'].apply(lambda x: grammar_correction_model(x)[0]['
 
 # Save the corrected dataset to a new CSV file
 df.to_csv('corrected.csv', index=False)
+
+print(df.head())

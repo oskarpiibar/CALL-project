@@ -4,6 +4,7 @@ import nltk
 from nltk.corpus import words
 from nltk import tokenize, word_tokenize
 from nltk.stem import WordNetLemmatizer
+import langdetect
 
 nltk.download('words')
 nltk.download('punkt_tab')
@@ -17,6 +18,33 @@ english_words = set(words.words())
 
 def remove_symbols(text):
     return re.sub(r'[^A-Za-z0-9\s.,;:!?\'"()%\-]', '', text)
+
+
+def filter_non_english(text):
+    text = text.lower()
+    words_list = re.split(r'\s+|/', text)
+    english_only_words = []
+    for word in words_list:
+        original_word = word.strip(".,%:;!?\"'()[]{}")
+        base_word = lemmatizer.lemmatize(original_word)
+        try:
+            if langdetect.detect(original_word or base_word) == 'en':
+                english_only_words.append(word)
+            elif ((original_word.rstrip("'s") in english_words) or 
+                (str.isdigit(original_word)) or
+                ("'" in original_word)):
+                english_only_words.append(word)
+        except langdetect.lang_detect_exception.LangDetectException:
+            pass  # If language detection fails, skip the word
+
+    print(english_only_words)
+    if len(words_list) == 0:
+        return ''  # Return empty string if text is empty
+    english_percentage = len(english_only_words) / len(words_list)
+    if english_percentage >= 0.3:
+        return ' '.join(english_only_words)  # Return only English words
+    else:
+        return None  # Mark row for removal if below 30% English content
 
 def filter_non_english_rows(text):
     words_list = re.split(r'\s+|/', text)
@@ -61,7 +89,8 @@ def remove_short_senteces(text):
             new_text += sentence + ' '
     return new_text.strip()
 
-string = "hi;hello there ?every life's a 50% : 50% movie. We got different stars and stories. We got different nights and mornings.Â°â€¢â˜†Â°â€¢â˜†Â°â€¢â˜†Â°â€¢â˜†Â°â€¢â˜†Â°â€¢â˜†Â°â€¢â˜†â€¢"
+# string = "hi;hello there ?every life's a 50% : 50% movie. We got different stars and stories. We got different nights and mornings.Â°â€¢â˜†Â°â€¢â˜†Â°â€¢â˜†Â°â€¢â˜†Â°â€¢â˜†Â°â€¢â˜†Â°â€¢â˜†â€¢"
+string = "Je Monique 58 ans, shouldn't However this matter don't I'm okay de Metz dans Nord-Est de la France. Je pratique l'Espagnol, l'Anglais, me manque des gens Tous les les retour, j'aiderai la pratique Franais"
 
 new = add_space_after_punctuation(string)
 new = ftfy.fix_text(new)
