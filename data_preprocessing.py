@@ -1,61 +1,15 @@
-from langdetect import detect, DetectorFactory 
+from langdetect import detect 
 from langdetect.lang_detect_exception import LangDetectException
 import re
 import ftfy
 import pandas as pd
 from tqdm import tqdm
-from nltk.stem import WordNetLemmatizer
 from nltk import tokenize
-import nltk
-from nltk.corpus import words, names
-import geonamescache  
+import fasttext
+from huggingface_hub import hf_hub_download
 
-
-# Download necessary NLTK data
-nltk.download('words')
-nltk.download('names')
-nltk.download('punkt_tab')
-nltk.download('omw-1.4')
-nltk.download('wordnet')
-
-lemmatizer = WordNetLemmatizer()
-
-# Initialize English words set
-english_words = set(words.words())
-
-# Add names to the English words set
-male_names = set(names.words('male.txt'))
-female_names = set(names.words('female.txt'))
-all_names = male_names.union(female_names)
-english_words.update(name.lower() for name in all_names)
-
-# Add cities to the English words set using geonamescache
-gc = geonamescache.GeonamesCache()
-cities = set()
-for city_info in gc.get_cities().values():
-    city_name = city_info['name'].lower()
-    cities.add(city_name)
-english_words.update(cities)
-
-# Add language names
-languages = {
-    "estonian", "english", "spanish", "french", "german", "chinese", "arabic", "russian",
-    "japanese", "korean", "portuguese", "italian", "dutch", "turkish", "hindi",
-    "bengali", "urdu", "swahili", "hebrew", "greek", "latin", "persian", "tamil", "thai"
-}
-english_words.update(languages)
-
-# Add nationalities
-nationalities = {
-    "american", "british", "canadian", "french", "german", "italian", "spanish",
-    "russian", "chinese", "japanese", "korean", "indian", "brazilian", "mexican",
-    "nigerian", "australian", "swedish", "dutch", "turkish", "saudi", "argentinian",
-    "egyptian", "south african", "polish", "pakistani", "bangladeshi", "filipino"
-}
-english_words.update(nationalities)
-
-
-DetectorFactory.seed = 0
+model_path = hf_hub_download(repo_id="facebook/fasttext-language-identification", filename="model.bin")
+model = fasttext.load_model(model_path)
 
 # Load the dataset
 df_og = pd.read_csv('dataset_cleand-1-1.csv')
@@ -82,38 +36,35 @@ def remove_short_senteces(text):
             new_text += sentence + ' '
     return new_text.strip()
 
-# Function to retain rows with at least 30% English content and remove non-English words
-def filter_non_english_rows(text):
-    words_list = re.split(r'\s+|/', text)
-    english_only_words = []
-    for word in words_list:
-        # Keep the original word for proper nouns
-        original_word = word.strip(".;:%,!?\"'()[]{}")
-        clean_word = original_word.lower()
-        
-        # Lemmatize to handle plurals, e.g., "stories" -> "story"
-        base_word = lemmatizer.lemmatize(clean_word)
-        
-        if (base_word in english_words or
-            clean_word.rstrip("'s") in english_words or
-            clean_word in english_words or
-            original_word.istitle() or
-            str.isdigit(original_word) or
-            "'" in original_word):  # Allow contractions with apostrophes like don't
-            english_only_words.append(word)  # Keep original word with punctuation
 
-    # Calculate English percentage and determine if row is mostly English
-    if len(words_list) == 0:
-        return ''  # Return empty string if text is empty
-    english_percentage = len(english_only_words) / len(words_list)
-    if english_percentage >= 0.3:
-        return ' '.join(english_only_words)  # Return only English words
-    else:
-        return None  # Mark row for removal if below 30% English content
+def filter_non_english_sentences(text):
+    sentences = re.split(r'(?<=[.!?]) +', text)
+    english_sentences = []
+    for sentence in sentences:
+        try:
+            if detect(sentence) == 'en':  
+                english_sentences.append(sentence)
+        except LangDetectException:
+            pass
+    return ' '.join(english_sentences)
+
+
+def additional_fasttext_language_detection(text):
+    english_sentences = []
+    sentences = re.split(r'(?<=[.!?]) +', text)
+    for sentence in sentences:
+        prediction = model.predict(sentence, k=1)
+        predicted_language = prediction[0][0].split('__label__')[1]
+        confidence_score = prediction[1][0]
+        if predicted_language == 'eng_Latn' and confidence_score >= 0.99:
+            english_sentences.append(sentence)
+
+    return ' '.join(english_sentences)
 
 
 def remove_paragraph_space(text):
     return re.sub(r'\n+', '', text.strip())
+
 
 def remove_emoticons(text):
     emoticon_pattern = re.compile(
@@ -146,11 +97,16 @@ tqdm.pandas(desc="Removing paragraph spaces")
 df['text'] = df['text'].progress_apply(remove_paragraph_space)
 
 tqdm.pandas(desc="Filtering for non-English sentences")
-df['text'] = df['text'].progress_apply(filter_non_english_rows)
+df['text'] = df['text'].progress_apply(filter_non_english_sentences)
+df = df[df['text'].str.strip().astype(bool)].reset_index(drop=True)
+
+tqdm.pandas(desc="Additional filtering with fasttext model")
+df['text'] = df['text'].progress_apply(additional_fasttext_language_detection)
 df = df[df['text'].str.strip().astype(bool)].reset_index(drop=True)
 
 tqdm.pandas(desc="Removing short sentences")
 df['text'] = df['text'].progress_apply(remove_short_senteces)
+df['text'].replace('', pd.NA, inplace=True)
 df = df.dropna(subset=['text']).reset_index(drop=True)
 
 # Display final DataFrame
