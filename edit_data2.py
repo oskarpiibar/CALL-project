@@ -56,7 +56,7 @@ english_words.update(nationalities)
 DetectorFactory.seed = 0
 
 # Load the dataset
-df_og = pd.read_csv('processed_dataset.csv')
+df_og = pd.read_csv('dataset_cleand-1-1.csv')
 df = df_og.copy()
 print("Original DataFrame:")
 print(df.head(20))
@@ -107,13 +107,25 @@ def filter_non_english_rows(text):
         return ' '.join(english_only_words)  # Return only English words
     else:
         return None  # Mark row for removal if below 30% English content
+    
+
+def filter_non_english_sentences(text):
+    sentences = re.split(r'(?<=[.!?]) +', text)
+    english_sentences = []
+    for sentence in sentences:
+        try:
+            if detect(sentence) == 'en':  
+                english_sentences.append(sentence)
+        except LangDetectException:
+            pass
+    return ' '.join(english_sentences)
 
 tqdm.pandas(desc="Processing dataset")
 
 df['text'] = df['text'].progress_apply(ftfy.fix_text)
 df['text'] = df['text'].progress_apply(remove_symbols)
 df['text'] = df['text'].progress_apply(add_remove_space_near_puncuation)
-df['text'] = df['text'].progress_apply(filter_non_english_rows)
+df['text'] = df['text'].progress_apply(filter_non_english_sentences)
 df['text'] = df['text'].progress_apply(remove_short_senteces)
 df = df.dropna(subset=['text']).reset_index(drop=True)
 
