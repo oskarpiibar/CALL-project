@@ -18,10 +18,10 @@ for entry in df['native']:
         native_lang_count[entry] += 1
 
 top_5_langauges = sorted(native_lang_count, key=native_lang_count.get, reverse=True)[:5]
-print(top_5_langauges)
-# filtered_df = df[df['native'].isin(top_5_langauges)]
 
-# filtered_df.to_csv("top_5_native_languages.csv", index = False)
+filtered_df = df[df['native'].isin(top_5_langauges)]
+
+filtered_df.to_csv("test_top_5_native_languages.csv", index = False)
 
 # tqdm.pandas()
 

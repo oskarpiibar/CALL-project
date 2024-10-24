@@ -1,3 +1,21 @@
+# import pandas as pd
+# from textblob import TextBlob
+# from tqdm import tqdm
+
+# # Load the CSV file into a DataFrame
+# df = pd.read_csv('test_set.csv')
+
+# # Add a progress bar using tqdm
+# tqdm.pandas(desc="Correcting Text")
+
+# # Apply TextBlob's correction in a more efficient way
+# df['correct'] = df['incorrect'].progress_apply(lambda x: str(TextBlob(x).correct()))
+
+# # Save the corrected DataFrame to a new CSV file
+# df.to_csv('textblob_corrected.csv', index=False)
+
+# print(df.head())
+
 # Happytransformer (T5)
 import pandas as pd
 from happytransformer import HappyTextToText, TTSettings
