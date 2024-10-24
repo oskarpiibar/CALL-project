@@ -1,27 +1,34 @@
+# Happytransformer (T5)
 import pandas as pd
-from transformers import pipeline
+from happytransformer import HappyTextToText, TTSettings
 from tqdm import tqdm
+import re
 
-# Firstly split the double languages
-df = pd.read_csv('preprocessed_dataset.csv')
+# Load the CSV file into a DataFrame
+df = pd.read_csv('top_3_native_languages.csv')
 
-df['native'] = df['native'].str.split('<br/>')
-df = df.explode('native')
-df.reset_index(drop=True, inplace=True)
+# Initialize HappyTextToText model
+happy_tt = HappyTextToText("T5", "vennify/t5-base-grammar-correction")
 
-# Take the top 5 languages from the native column
-native_lang_count = {}
-for entry in df['native']:
-    if entry not in native_lang_count.keys():
-        native_lang_count[entry] = 1
-    else:
-        native_lang_count[entry] += 1
+args = TTSettings(num_beams=5, min_length=1)
 
-top_5_langauges = sorted(native_lang_count, key=native_lang_count.get, reverse=True)[:5]
+def correct_grammar(text):
+    sentences = re.split(r'(?<=[.!?]) +', text)
+    corrected_sentences = []
+    
+    for sentence in sentences:
+        result = happy_tt.generate_text(f"grammar: {sentence}", args=args)
+        corrected_sentences.append(result.text)  # Collect all corrected sentences
+    
+    return ' '.join(corrected_sentences)
 
-filtered_df = df[df['native'].isin(top_5_langauges)]
+tqdm.pandas()
 
-filtered_df.to_csv("test_top_5_native_languages.csv", index = False)
+df['correct'] = df['text'].progress_apply(correct_grammar)
+
+df.to_csv('top_3_with_corrections.csv', index=False)
+
+print(df.head())
 
 # tqdm.pandas()
 

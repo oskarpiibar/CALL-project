@@ -20,6 +20,7 @@
 import pandas as pd
 from happytransformer import HappyTextToText, TTSettings
 from tqdm import tqdm
+import re
 
 # Load the CSV file into a DataFrame
 df = pd.read_csv('test_set.csv')
@@ -30,14 +31,20 @@ happy_tt = HappyTextToText("T5", "vennify/t5-base-grammar-correction")
 args = TTSettings(num_beams=5, min_length=1)
 
 def correct_grammar(text):
-    result = happy_tt.generate_text(f"grammar: {text}", args=args)
-    return result.text
+    sentences = re.split(r'(?<=[.!?]) +', text)
+    corrected_sentences = []
+    
+    for sentence in sentences:
+        result = happy_tt.generate_text(f"grammar: {sentence}", args=args)
+        corrected_sentences.append(result.text)  # Collect all corrected sentences
+    
+    return ' '.join(corrected_sentences)
 
 tqdm.pandas()
 
 df['correct_text'] = df['incorrect'].progress_apply(correct_grammar)
 
-df.to_csv('corrected_test.csv', index=False)
+df.to_csv('test_corrected_test.csv', index=False)
 
 print(df.head())
 
