@@ -1,24 +1,58 @@
-from transformers import pipeline
+# Happytransformer (T5)
 import pandas as pd
+from happytransformer import HappyTextToText, TTSettings
 from tqdm import tqdm
+
+# Load the CSV file into a DataFrame
+df = pd.read_csv('test_set.csv')
+
+# Initialize HappyTextToText model
+happy_tt = HappyTextToText("T5", "vennify/t5-base-grammar-correction")
+
+args = TTSettings(num_beams=5, min_length=1)
+
+def correct_grammar(text):
+    result = happy_tt.generate_text(f"grammar: {text}", args=args)
+    return result.text
 
 tqdm.pandas()
 
-df = pd.read_csv('test_set.csv')
+df['correct_text'] = df['incorrect'].progress_apply(correct_grammar)
 
-# Load the Grammar Correction T5 Model from Hugging Face
-grammar_correction_model = pipeline(task="text2text-generation", model="hassaanik/grammar-correction-model")
-
-df['correct_text'] = df['incorrect'].progress_apply(lambda x: grammar_correction_model(x, return_tensors=False)[0]['generated_text'])
-
-df.to_csv('test_set.csv', index=False)
+df.to_csv('corrected_test.csv', index=False)
 
 print(df.head())
 
 
-# # Input text with grammatical errors
-# input_text = "They is going to spent time together."
-# # Get corrected output and details
-# result = grammar_correction_model(input_text, max_length=200, num_beams=5, no_repeat_ngram_size=2)
-# # Print the corrected output
-# print(result)
+# os.environ['TF_ENABLE_ONEDNN_OPTS'] = '0'
+
+# df = pd.read_csv('test_set.csv')
+
+# grammar_correction_model = pipeline(task="text2text-generation", model="hassaanik/grammar-correction-model")
+
+# Good for grammar correction. Used in various grammar correction tasks
+# grammar_correction_model = pipeline("text2text-generation", model="prithivida/grammar_error_correcter_v1", from_pt=True)
+
+# Grammar correction in noisy transcriptions 
+# grammar_correction_model = pipeline("text2text-generation", model="flexudy/t5-small-wav2vec2-grammar-fixer")
+
+# Fine tuned for grammar correction
+# grammar_correction_model = pipeline("fill-mask", model="bert-base-cased-finetuned-grammar-check")
+
+# Initial grammar correction tool
+
+# import pandas as pd
+# from transformers import pipeline
+# from tqdm import tqdm
+
+# # Specifically trained for grammar correction
+# grammar_correction_model = pipeline(task = "text2text-generation", model="vennify/t5-base-grammar-correction")
+
+# tqdm.pandas()
+
+# df['correct_text'] = df['incorrect'].progress_apply(lambda x: grammar_correction_model(x, return_tensors=False)[0]['generated_text'])
+
+# # Save the corrected dataset to a new CSV file
+# df.to_csv('corrected_test.csv', index=False)
+
+# print(df.head())
