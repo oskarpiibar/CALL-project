@@ -18,7 +18,7 @@ def correct_grammar(text):
     
     for sentence in sentences:
         result = happy_tt.generate_text(f"grammar: {sentence}", args=args)
-        corrected_sentences.append(result.text)  # Collect all corrected sentences
+        corrected_sentences.append(result.text)
     
     return ' '.join(corrected_sentences)
 
@@ -29,15 +29,3 @@ df['correct'] = df['text'].progress_apply(correct_grammar)
 df.to_csv('top_3_with_corrections.csv', index=False)
 
 print(df.head())
-
-# tqdm.pandas()
-
-# df = pd.read_csv('preprocessed_dataset.csv')
-
-# grammar_correction_model = pipeline(task="text2text-generation", model="hassaanik/grammar-correction-model")
-
-# df['correct_text'] = df['text'].progress_apply(lambda x: grammar_correction_model(x, max_new_tokens=50)[0]['generated_text'])
-
-# df.to_csv('corrected.csv', index=False)
-
-# print(df.head())
