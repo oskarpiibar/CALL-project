@@ -1,3 +1,4 @@
-version https://git-lfs.github.com/spec/v1
-oid sha256:487584c1762c4f59758f26c7898c162dac5a2b66fbd51e9fabe6abcfde1347ea
-size 492
+incorrect,correct_text
+They is going to spent tim togeher.,They are going to spend time to get back.
+They is going to spent time together.,They are going to spend time together.
+"Hi, me name are Oskar","Hi, my name is Oskar. Hi, my name is Oskar."
