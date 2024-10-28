@@ -7,16 +7,15 @@ tqdm.pandas()
 nltk.download('punkt')
 nltk.download('averaged_perceptron_tagger_eng')
  
-df = pd.read_csv('test_set.csv')
+df = pd.read_csv('top_3_with_corrections.csv')
 
-tagged_incorrect = pos_tag_sents(df['incorrect'].progress_apply(word_tokenize).tolist())
-tagged_correct = pos_tag_sents(df['correct_text'].progress_apply(word_tokenize).tolist())
+tagged_incorrect = pos_tag_sents(df['text'].progress_apply(word_tokenize).tolist())
+tagged_correct = pos_tag_sents(df['correct'].progress_apply(word_tokenize).tolist())
 
 df["POS_incorrect"] = tagged_incorrect
 df["POS_correct"] = tagged_correct
 
-df.to_csv('test_set.csv', index=False)
-df.head(20)
+df.to_csv('top_3_with_corrections_POS.csv', index=False)
 
 # from joblib import Parallel, delayed
 # import pandas as pd
