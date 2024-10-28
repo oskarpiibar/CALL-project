@@ -1,2 +1,0 @@
-analysis/big_dataset.csv filter=lfs diff=lfs merge=lfs -text
-analysis/intermediate_results.csv filter=lfs diff=lfs merge=lfs -text
