@@ -1,4 +1,6 @@
-incorrect,correct_text
-They is going to spent tim togeher.,They are going to spend time to get back.
-They is going to spent time together.,They are going to spend time together.
-"Hi, me name are Oskar","Hi, my name is Oskar. Hi, my name is Oskar."
+native,incorrect,correct_text
+Spanish,They is going to spent tim togeher.,They are going to spend time to get back.
+Spanish,They is going to spent time together.,They are going to spend time together.
+Spanish,"Hi, me name are Oskar","Hi, my name is Oskar. Hi, my name is Oskar."
+Spanish,I go to some parks everi dai because i love natures,I go to some parks everi dai because I love nature.
+Spanish,Everyday i think about tree and trash can,Everyday i think about trees and trash cans.
