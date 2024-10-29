@@ -1,6 +1,3 @@
-text,correct,classified_errors,error_counts
-I will appreciate it if you correct my sentences.,I would appreciate it if you could correct my sentences.,"[('AUX Error', 'will', 'AUX', 'would', 'AUX'), ('AUX Error', 'ADDED', 'AUX', 'could')]",{'AUX Error': 2}
-The summer weather in Japan is not agreeable to me with its high humidity and temperature.,I find Japan's summer weather disagreeable because of its high humidity and temperature.,"[('PRON Error', 'The', 'DET', 'I', 'PRON'), ('VERB Error', 'ADDED', 'VERB', 'find'), ('PROPN Error', 'ADDED', 'PROPN', 'Japan'), ('PART Error', 'ADDED', 'PART', ""'s""), ('ADP Error', 'in', 'ADP', 'DELETED'), ('PROPN Error', 'Japan', 'PROPN', 'DELETED'), ('AUX Error', 'is', 'AUX', 'DELETED'), ('PART Error', 'not', 'PART', 'DELETED'), ('ADJ Error', 'agreeable', 'ADJ', 'disagreeable', 'ADJ'), ('ADP Error', 'ADDED', 'ADP', 'of'), ('PRON Error', 'ADDED', 'PRON', 'its'), ('PRON Error', 'me', 'PRON', 'DELETED'), ('ADP Error', 'with', 'ADP', 'DELETED'), ('PRON Error', 'its', 'PRON', 'DELETED')]","{'PRON Error': 4, 'VERB Error': 1, 'PROPN Error': 2, 'PART Error': 2, 'ADP Error': 3, 'AUX Error': 1, 'ADJ Error': 1}"
-"So, as the winter is coming, I'm getting to feel better.","So, as the winter is coming, I'm starting to feel better.","[('VERB Error', 'getting', 'VERB', 'starting', 'VERB')]",{'VERB Error': 1}
-It is the very exciting season.,It is a very exciting season.,"[('DET Error', 'the', 'DET', 'a', 'DET')]",{'DET Error': 1}
-"But, before enjoying those kind of happy time, I have to do a kind of boring,","But, before enjoying those kind of happy times, I have to do a kind of boring,","[('NOUN Error', 'time', 'NOUN', 'times', 'NOUN')]",{'NOUN Error': 1}
+version https://git-lfs.github.com/spec/v1
+oid sha256:714f2b1ea5bcd2cc5a718c4da8377d01c7e4f43ad4ce4179128f3cf2ffa6bb63
+size 452124960

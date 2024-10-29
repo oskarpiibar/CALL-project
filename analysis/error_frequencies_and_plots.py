@@ -1,6 +1,4 @@
 import pandas as pd
-import matplotlib.pyplot as plt
-import seaborn as sns
 from collections import Counter
 
 # Load the processed CSV file with native languages, classified errors, and error counts
