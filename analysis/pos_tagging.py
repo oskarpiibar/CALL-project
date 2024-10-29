@@ -127,7 +127,7 @@ error_pattern_df.to_csv('error_analysis_by_language.csv', index=False)
 
 print("Error classification and analysis completed and saved.") """
 
-""" from ast import literal_eval
+from ast import literal_eval
 
 # Load error analysis file
 df = pd.read_csv('classified_error_results.csv')
@@ -150,12 +150,12 @@ df['error_counts'] = df['error_counts'].apply(to_counter)
 df = df[['native', 'error_counts']]
 df.to_csv('inspect', index=False)
 
-grouped_df = df.groupby('native')['error_counts'].apply(lambda x: sum(x, Counter())).reset_index() """
-""" 
+grouped_df = df.groupby('native')['error_counts'].apply(lambda x: sum(x, Counter())).reset_index()
+
 # Save the result to a new CSV file
 grouped_df.to_csv('classified_error_counts_by_language.csv', index=False)
 
-print("The grouped error counts by native language have been saved to 'classified_error_counts_by_language.csv'.") """
+print("The grouped error counts by native language have been saved to 'classified_error_counts_by_language.csv'.")
 
 # Calculate relative frequencies by dividing each error count by the total number of errors for that row
 def calculate_relative_frequency(counter_dict):
