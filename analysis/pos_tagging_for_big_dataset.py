@@ -137,8 +137,10 @@ except Exception as e:
 import ast
 
 # List of known error types
-known_error_types = ['Pronoun Error', 'Verb Error', 'Noun Error', 'Adjective Error', 'Preposition Error', 'Other Error',
-                     'DET Error', 'PROPN Error', 'PART Error', 'ADP Error', 'AUX Error', 'ADJ Error', 'PRON Error', 'NOUN Error', 'VERB Error', 'OTHER Error']
+known_error_types = ['PRON Error', 'SYM Error', 'VERB Error', 'ADP Error', 'PART Error',
+                      'AUX Error', 'SCONJ Error', 'NUM Error', 'SPACE Error', 'ADV Error',
+                        'NOUN Error', 'INTJ Error', 'PUNCT Error', 'CCONJ Error',
+                          'DET Error', 'ADJ Error', 'PROPN Error']
 
 df['classified_errors'] = df['classified_errors'].apply(ast.literal_eval)
 
