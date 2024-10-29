@@ -8,6 +8,7 @@ model_spanish = torch.load("path/to/spanish_model.pt")
 model_russian = torch.load("path/to/russian_model.pt")
 model_chinese = torch.load("path/to/chinese_model.pt")
 
+
 def correct_text(model, text):
     # method name needs to be changed to the name they put
     corrected_text = model.correct(text)
@@ -39,8 +40,10 @@ def correct_text_route():
             model = model_spanish
         elif language == "Russian":
             model = model_russian
+
         elif language == "Chinese (Mandarin)":
             model = model_chinese
+
         else:
             return jsonify({'error': f"Model for '{language}' not found."}), 400
         
