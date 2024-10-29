@@ -6,7 +6,8 @@ app = Flask(__name__)
 
 model_spanish = torch.load("path/to/spanish_model.pt")
 model_russian = torch.load("path/to/russian_model.pt")
-model_hindu = torch.load("path/to/hindu_model.pt")
+model_chinese = torch.load("path/to/chinese_model.pt")
+
 
 def correct_text(model, text):
     # method name needs to be changed to the name they put
@@ -39,8 +40,10 @@ def correct_text_route():
             model = model_spanish
         elif language == "Russian":
             model = model_russian
-        elif language == "Hindu":
-            model = model_hindu
+
+        elif language == "Chinese (Mandarin)":
+            model = model_chinese
+
         else:
             return jsonify({'error': f"Model for '{language}' not found."}), 400
         
