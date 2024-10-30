@@ -4,7 +4,7 @@ from ast import literal_eval
 from tqdm import tqdm
 
 df_big = pd.read_csv("analysis/intermediate_results.csv")
-df_small = pd.read_csv("analysis/POS sequences/error_prone_POS_sequences_small.csv")
+df_small = pd.read_csv("analysis/POS sequences/4error_prone_POS_sequences_small.csv")
 
 df_small['POS Sequence'] = df_small['POS Sequence'].apply(lambda x: literal_eval(x) if isinstance(x, str) else x)
 df_big['classified_errors'] = df_big['classified_errors'].apply(lambda x: literal_eval(x) if isinstance(x, str) else x)
@@ -69,6 +69,6 @@ for language in target_languages:
     language_df = new_df[new_df['native'] == language]
     
     if not language_df.empty:
-        filename = f'sequence_extracted_texts_{language}.csv'
+        filename = f'sequence_extracted_texts_{language}_4.csv'
         language_df.to_csv(filename, index=False)
         print(f"Saved {len(language_df)} rows for {language} to {filename}")

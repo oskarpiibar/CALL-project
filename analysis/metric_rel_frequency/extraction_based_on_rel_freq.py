@@ -10,7 +10,7 @@ error_types_relative_df = pd.read_pickle('error_types_relative_frequencies.pkl')
 inconclusive_count = 0
 
 # Function to classify new text based on cosine similarity with a 95% confidence threshold
-def classify_native_language(new_text_profile, error_types_relative_df, confidence_threshold=0.85):
+def classify_native_language(new_text_profile, error_types_relative_df, confidence_threshold):
     global inconclusive_count  # Use global to modify the counter variable
     
     # Convert the new text profile to a DataFrame with the same structure as error_types_relative_df
@@ -36,7 +36,7 @@ def classify_native_language(new_text_profile, error_types_relative_df, confiden
     return error_types_relative_df.index[most_similar_index]
 
 # Function to iterate through the dataframe with 'incorrect' and 'correct' text columns
-def classify_texts(df, error_types_relative_df, confidence_threshold=0.85):
+def classify_texts(df, error_types_relative_df, confidence_threshold=0.95):
     results = []
 
     # Add tqdm progress bar for the iteration
@@ -74,7 +74,7 @@ for language in target_languages:
     
     # If there are rows for this language, save them to a CSV
     if not language_df.empty:
-        filename = f'classified_texts_{language}.csv'
+        filename = f'classified_texts_{language}_95.csv'
         language_df.to_csv(filename, index=False)
         print(f"Saved {len(language_df)} rows for {language} to {filename}")
 
