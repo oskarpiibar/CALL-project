@@ -53,7 +53,7 @@ for _, row in tqdm(df.iterrows(), total=len(df), desc="Processing Rows"):
 
 output_data = []
 for language, counter in language_pos_sequence_counters.items():
-    top_sequences = counter.most_common(7)
+    top_sequences = counter.most_common(4)
     for sequence, count in top_sequences:
         output_data.append({
             "Native": language,
@@ -62,5 +62,5 @@ for language, counter in language_pos_sequence_counters.items():
         })
 
 output_df = pd.DataFrame(output_data)
-output_df.to_csv("analysis/POS sequences/error_prone_POS_sequences_small.csv", index = False)
+output_df.to_csv("analysis/POS sequences/4error_prone_POS_sequences_small.csv", index = False)
 print("CSV file 'error_prone_POS_sequences_small.csv' created successfully.")

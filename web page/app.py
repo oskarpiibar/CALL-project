@@ -1,18 +1,21 @@
 from flask import Flask, request, jsonify
-import torch  
-
+from flask import Flask, redirect, render_template, request, abort
+import pickle
+from happytransformer import TTSettings
+from flask_cors import CORS
 
 app = Flask(__name__)
 
-model_spanish = torch.load("path/to/spanish_model.pt")
-model_russian = torch.load("path/to/russian_model.pt")
-model_chinese = torch.load("path/to/chinese_model.pt")
-
+CORS(app)
 
 def correct_text(model, text):
-    # method name needs to be changed to the name they put
-    corrected_text = model.correct(text)
-    return corrected_text
+    with open(model, 'rb') as file:
+        happy_tt = pickle.load(file)
+    beam_settings = TTSettings(num_beams=5, min_length=1, max_length=50)
+    learner_sentence = f"grammar: {text}"
+    corrected_sentence = happy_tt.generate_text(learner_sentence, args=beam_settings).text
+    print(corrected_sentence)
+    return corrected_sentence
 
 def analyze_mistakes(original_text, corrected_text):
     """Analyzes mistakes between the original and corrected text."""
@@ -25,9 +28,22 @@ def analyze_mistakes(original_text, corrected_text):
     except Exception as e:
         print(f"Error in mistake analysis: {e}")
         return None
+    
+@app.route('/')
+def home():
+ return render_template('page.html')
 
-@app.route('/correct_text', methods=['POST'])
+@app.route('/hello')
+def hello():
+    return "Hello, World!"
+
+@app.route('/test_post', methods=['GET','POST'])
+def test_post():
+    return jsonify({"message": "POST request successful"})
+
+@app.route('/correct_text', methods=['GET', 'POST'])
 def correct_text_route():
+    print("Route accessed")
     try:
         data = request.get_json()
         text = data.get('text')
@@ -37,17 +53,17 @@ def correct_text_route():
             return jsonify({'error': 'Missing text or language input.'}), 400
 
         if language == "Spanish":
-            model = model_spanish
+            model = '../models/spanish_model1'
         elif language == "Russian":
-            model = model_russian
-
+            model = ""
         elif language == "Chinese (Mandarin)":
-            model = model_chinese
+            model = ""
 
         else:
             return jsonify({'error': f"Model for '{language}' not found."}), 400
         
         # Perform text correction
+        print("accessing correcting method")
         corrected_text = correct_text(model, text)
         
         if corrected_text is None:
@@ -66,4 +82,4 @@ def correct_text_route():
         return jsonify({'error': 'Internal server error.'}), 500
 
 if __name__ == '__main__':
-    app.run(debug=True)
+    app.run(debug=True, port=5000)
