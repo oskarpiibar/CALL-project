@@ -11,3 +11,5 @@ analysis/metric_rel_frequency/error_types_relative_frequencies.csv filter=lfs di
 analysis/metric_rel_frequency/error_types_relative_frequencies_big_dataset.pkl filter=lfs diff=lfs merge=lfs -text
 analysis/metric_rel_frequency/error_types_relative_frequencies_with_text.pkl filter=lfs diff=lfs merge=lfs -text
 analysis/metric_rel_frequency/error_types_relative_frequencies_big_dataset.csv filter=lfs diff=lfs merge=lfs -text
+analysis/POS[[:space:]]sequences/sequence_extracted_texts_Russian_4.csv filter=lfs diff=lfs merge=lfs -text
+models/spanish_model1 filter=lfs diff=lfs merge=lfs -text
