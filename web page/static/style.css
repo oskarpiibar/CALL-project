@@ -1,4 +1,3 @@
-/* General body styling */
 body {
     font-family: Arial, sans-serif;
     background-color: #f4f5fb;
@@ -8,7 +7,6 @@ body {
     align-items: center;
 }
 
-/* Header styling */
 header {
     margin: 20px 0;
 }
@@ -18,15 +16,13 @@ h1 {
     font-size: 2rem;
 }
 
-/* Main container styling */
 main {
     display: flex;
     flex-direction: column;
     align-items: center;
-    gap: 20px; /* Adds spacing between the input and output containers */
+    gap: 20px; 
 }
 
-/* Container for form */
 .container {
     background-color: #fff;
     padding: 20px;
@@ -35,10 +31,9 @@ main {
     text-align: center;
     width: 800px;
 }
-/* Flex container for aligning language selector and text input */
 .form-row {
     display: flex;
-    gap: 20px; /* Space between the language selector and text input */
+    gap: 20px; 
     align-items: flex-start;
 }
 
@@ -54,9 +49,8 @@ main {
     border: 1px solid #ccc;
     font-size: 1rem;
 }
-/* Text input styling */
 .text-input-wrapper {
-    flex-grow: 1; /* Allows the text input to take remaining space */
+    flex-grow: 1; 
     display: flex;
     flex-direction: column;
 }
@@ -116,7 +110,6 @@ main {
     padding: 10px;
 }
 
-/* Mistakes container styling */
 .mistakes-container {
     background-color: #fff;
     padding: 20px;

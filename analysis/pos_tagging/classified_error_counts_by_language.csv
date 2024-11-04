@@ -1,0 +1,40 @@
+native,level_1,error_counts
+Chinese (Mandarin),PRON Error,664
+Chinese (Mandarin),PUNCT Error,1090
+Chinese (Mandarin),PROPN Error,399
+Chinese (Mandarin),DET Error,292
+Chinese (Mandarin),AUX Error,301
+Chinese (Mandarin),NOUN Error,624
+Chinese (Mandarin),VERB Error,676
+Chinese (Mandarin),ADP Error,364
+Chinese (Mandarin),ADJ Error,302
+Chinese (Mandarin),PART Error,192
+Chinese (Mandarin),NUM Error,19
+Chinese (Mandarin),SYM Error,8
+Chinese (Mandarin),X Error,5
+Russian,PRON Error,703
+Russian,PUNCT Error,1171
+Russian,PROPN Error,187
+Russian,DET Error,299
+Russian,AUX Error,305
+Russian,NOUN Error,480
+Russian,VERB Error,503
+Russian,ADP Error,290
+Russian,ADJ Error,274
+Russian,PART Error,225
+Russian,NUM Error,16
+Russian,SYM Error,5
+Russian,X Error,7
+Spanish,PRON Error,571
+Spanish,PUNCT Error,844
+Spanish,PROPN Error,265
+Spanish,DET Error,238
+Spanish,AUX Error,284
+Spanish,NOUN Error,516
+Spanish,VERB Error,539
+Spanish,ADP Error,258
+Spanish,ADJ Error,268
+Spanish,PART Error,227
+Spanish,NUM Error,15
+Spanish,SYM Error,4
+Spanish,X Error,2
