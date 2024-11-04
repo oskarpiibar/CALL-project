@@ -1,5 +1,4 @@
 async function correctText() {
-
     const language = document.getElementById("language-select").value;
     const text = document.getElementById("text-input").value;
 
@@ -13,7 +12,7 @@ async function correctText() {
         if (response.ok) {
             const result = await response.json();
             document.getElementById("output").innerText = result.corrected_text;
-            displayMistakes(analyzeMistakes(text, result.corrected_text));
+            displayMistakes(result.mistakes);  // Directly use the mistakes received from the server
         } else {
             document.getElementById("output").innerText = "Error: Unable to process your text.";
         }
@@ -41,3 +40,4 @@ function analyzeMistakes(originalText, correctedText) {
         mistakesOutput.appendChild(li);
     });
 }
+

@@ -66,6 +66,6 @@ data[['error_beginning_pct', 'error_middle_pct', 'error_end_pct']] = data.progre
 output_data = data[['text', 'correct', 'error_beginning_pct', 'error_middle_pct', 'error_end_pct']]
 
 # Save to CSV
-output_data.to_csv('error_position_percentage.csv', index=False)
+output_data.to_csv('to_classify.csv', index=False)
 
-print("The error position percentage data has been saved to 'error_position_percentage.csv'")
+print("The error position percentage data has been saved to 'to_classify.csv'")
