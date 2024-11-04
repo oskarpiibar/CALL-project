@@ -1,0 +1,142 @@
+/* General body styling */
+body {
+    font-family: Arial, sans-serif;
+    background-color: #f4f5fb;
+    margin: 0;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+}
+
+/* Header styling */
+header {
+    margin: 20px 0;
+}
+
+h1 {
+    color: #6c63ff;
+    font-size: 2rem;
+}
+
+/* Main container styling */
+main {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 20px; /* Adds spacing between the input and output containers */
+}
+
+/* Container for form */
+.container {
+    background-color: #fff;
+    padding: 20px;
+    border-radius: 8px;
+    box-shadow: 0px 4px 8px rgba(0, 0, 0, 0.1);
+    text-align: center;
+    width: 800px;
+}
+/* Flex container for aligning language selector and text input */
+.form-row {
+    display: flex;
+    gap: 20px; /* Space between the language selector and text input */
+    align-items: flex-start;
+}
+
+.language-selector, .text-input-wrapper {
+    margin-bottom: 15px;
+}
+
+#language-select {
+    width: 20%;
+    padding: 8px;
+    margin-top: 5px;
+    border-radius: 4px;
+    border: 1px solid #ccc;
+    font-size: 1rem;
+}
+/* Text input styling */
+.text-input-wrapper {
+    flex-grow: 1; /* Allows the text input to take remaining space */
+    display: flex;
+    flex-direction: column;
+}
+
+.text-input-wrapper label {
+    font-weight: bold;
+    margin-bottom: 5px;
+    display: block;
+}
+
+#text-input {
+    width: 100%;
+    padding: 8px;
+    border-radius: 4px;
+    border: 1px solid #ccc;
+    font-size: 1rem;
+    resize: vertical; 
+    min-height: 80px;
+    max-height: 150px; 
+    align-self: center;
+}
+
+#submit-button {
+    width: 15%;
+    padding: 10px;
+    font-size: 1rem;
+    color: #fff;
+    background-color: #6c63ff;
+    border: none;
+    border-radius: 4px;
+    cursor: pointer;
+}
+
+#submit-button:hover {
+    background-color: #5a54d2;
+}
+
+/* Output container styling */
+.output-container {
+    background-color: #fff;
+    padding: 20px;
+    border-radius: 8px;
+    box-shadow: 0px 4px 8px rgba(0, 0, 0, 0.1);
+    text-align: center;
+    width: 800px;
+}
+
+.output-container h2 {
+    color: #333;
+    font-size: 1.2rem;
+    margin-bottom: 10px;
+}
+
+#output {
+    color: #555;
+    font-size: 1rem;
+    padding: 10px;
+}
+
+/* Mistakes container styling */
+.mistakes-container {
+    background-color: #fff;
+    padding: 20px;
+    border-radius: 8px;
+    box-shadow: 0px 4px 8px rgba(0, 0, 0, 0.1);
+    text-align: center;
+    width: 800px;
+}
+
+.mistakes-container h2 {
+    color: #333;
+    font-size: 1.2rem;
+    margin-bottom: 10px;
+}
+
+#mistakes-output {
+    color: #555;
+    font-size: 1rem;
+    list-style-type: none;
+    padding: 0;
+    margin: 0;
+}
+
