@@ -24,9 +24,7 @@ async function correctText() {
 }
 
 
-// Function to analyze mistakes (you can modify this logic as needed)
 function analyzeMistakes(originalText, correctedText) {
-    // Placeholder logic for example
     return [
         "Missing article before noun",
         "Verb tense correction",
@@ -34,11 +32,9 @@ function analyzeMistakes(originalText, correctedText) {
     ];
 }
 
-// Function to display mistakes in the 'mistakes-output' list
-function displayMistakes(mistakes) {
+ function displayMistakes(mistakes) {
     const mistakesOutput = document.getElementById("mistakes-output");
-    mistakesOutput.innerHTML = ""; // Clear previous mistakes
-
+    mistakesOutput.innerHTML = ""; 
     mistakes.forEach(mistake => {
         const li = document.createElement("li");
         li.textContent = mistake;
