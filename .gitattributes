@@ -13,6 +13,7 @@ analysis/metric_rel_frequency/error_types_relative_frequencies_with_text.pkl fil
 analysis/metric_rel_frequency/error_types_relative_frequencies_big_dataset.csv filter=lfs diff=lfs merge=lfs -text
 analysis/POS[[:space:]]sequences/sequence_extracted_texts_Russian_4.csv filter=lfs diff=lfs merge=lfs -text
 models/spanish_model1 filter=lfs diff=lfs merge=lfs -text
+<<<<<<< HEAD
 analysis/error_analysis_big_dataset_clean.csv filter=lfs diff=lfs merge=lfs -text
 analysis/final_extraction/combined_Chinese.csv filter=lfs diff=lfs merge=lfs -text
 analysis/final_extraction/combined_Spanish.csv filter=lfs diff=lfs merge=lfs -text
@@ -20,3 +21,13 @@ analysis/metric_error_position/classified_texts_Russian.csv filter=lfs diff=lfs 
 analysis/final_extraction/combined_Russian.csv filter=lfs diff=lfs merge=lfs -text
 analysis/metric_error_position/classified_texts_by_error_position.csv filter=lfs diff=lfs merge=lfs -text
 models/model1 filter=lfs diff=lfs merge=lfs -text
+=======
+error_types_relative_frequencies_big_dataset.csv filter=lfs diff=lfs merge=lfs -text
+error_types_relative_frequencies_big_dataset.pkl filter=lfs diff=lfs merge=lfs -text
+error_types_relative_frequencies_with_text.csv filter=lfs diff=lfs merge=lfs -text
+error_types_relative_frequencies_with_text.pkl filter=lfs diff=lfs merge=lfs -text
+sequence_extracted_texts_Russian.csv filter=lfs diff=lfs merge=lfs -text
+intermediate_results.csv filter=lfs diff=lfs merge=lfs -text
+error_analysis_big_dataset_clean.csv filter=lfs diff=lfs merge=lfs -text
+POS_sequence_extracted_rows.csv filter=lfs diff=lfs merge=lfs -text
+>>>>>>> 3271efd08f9c74524db5ae2a7426f1fb1eaf9cd1

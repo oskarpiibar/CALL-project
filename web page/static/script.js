@@ -22,11 +22,18 @@ async function correctText() {
     }
 }
 
-// Function to display mistakes in the 'mistakes-output' list
-function displayMistakes(mistakes) {
-    const mistakesOutput = document.getElementById("mistakes-output");
-    mistakesOutput.innerHTML = ""; // Clear previous mistakes
 
+function analyzeMistakes(originalText, correctedText) {
+    return [
+        "Missing article before noun",
+        "Verb tense correction",
+        "Incorrect preposition usage"
+    ];
+}
+
+ function displayMistakes(mistakes) {
+    const mistakesOutput = document.getElementById("mistakes-output");
+    mistakesOutput.innerHTML = ""; 
     mistakes.forEach(mistake => {
         const li = document.createElement("li");
         li.textContent = mistake;
