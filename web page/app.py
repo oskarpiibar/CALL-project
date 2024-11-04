@@ -124,6 +124,13 @@ def analyze_mistakes(original_text, corrected_text):
 def home():
  return render_template('page.html')
 
+@app.route('/hello')
+def hello():
+    return "Hello, World!"
+
+@app.route('/test_post', methods=['GET','POST'])
+def test_post():
+    return jsonify({"message": "POST request successful"})
 
 @app.route('/correct_text', methods=['GET', 'POST'])
 def correct_text_route():
