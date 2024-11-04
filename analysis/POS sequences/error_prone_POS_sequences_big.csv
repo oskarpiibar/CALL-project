@@ -1,0 +1,11 @@
+POS Sequence,Count
+"('ADP', 'DET', 'NOUN')",113885
+"('VERB', 'DET', 'NOUN')",106393
+"('PRON', 'AUX', 'VERB')",102148
+"('DET', 'NOUN', 'PUNCT')",75290
+"('ADJ', 'NOUN', 'PUNCT')",72853
+"('DET', 'ADJ', 'NOUN')",65103
+"('DET', 'NOUN', 'ADP')",61573
+"('PUNCT', 'PRON', 'AUX')",61269
+"('NOUN', 'ADP', 'DET')",52693
+"('VERB', 'ADP', 'DET')",49459

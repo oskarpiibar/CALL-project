@@ -44,7 +44,7 @@ def classify_error_position(new_position_profile, ground_df_features, ground_lab
     return ground_labels.iloc[most_similar_index]
 
 # Function to iterate through the dataframe to classify, comparing each row to ground_df_features
-def classify_texts(df, ground_df_features, ground_labels, confidence_threshold=0.80):
+def classify_texts(df, ground_df_features, ground_labels, confidence_threshold=0.95):
     results = []
 
     # Add tqdm progress bar for the iteration
@@ -82,9 +82,9 @@ for language in target_languages:
     
     # If there are rows for this language, save them to a CSV
     if not language_df.empty:
-        filename = f'classified_texts_{language}.csv'
+        filename = f'classified_texts_{language}_95.csv'
         language_df.to_csv(filename, index=False)
         print(f"Saved {len(language_df)} rows for {language} to {filename}")
 
 # Print the number of inconclusive predictions
-print(f"Number of inconclusive predictions (below 80% confidence): {inconclusive_count}")
+print(f"Number of inconclusive predictions: {inconclusive_count}")

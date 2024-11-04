@@ -1,6 +1,8 @@
 import difflib
 import pandas as pd
 from tqdm import tqdm
+import sys
+sys.setrecursionlimit(3000)
 
 tqdm.pandas()
 
@@ -60,6 +62,7 @@ df = pd.read_csv('intermediate_results.csv')
 print ("file read")
 # Convert string representations of POS tags back to list of tuples
 df['original_pos'] = df['original_pos'].apply(eval)
+print("eval thingy")
 df['corrected_pos'] = df['corrected_pos'].apply(eval)
 df['classified_errors'] = df.progress_apply(lambda row: classify_errors_from_diff(row['original_pos'], row['corrected_pos']), axis=1)
 

@@ -86,4 +86,4 @@ for language in target_languages:
         print(f"Saved {len(language_df)} rows for {language} to {filename}")
 
 # Print the number of inconclusive predictions
-print(f"Number of inconclusive predictions (below 80% confidence): {inconclusive_count}")
+print(f"Number of inconclusive predictions: {inconclusive_count}")
