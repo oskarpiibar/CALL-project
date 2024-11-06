@@ -1,6 +1,6 @@
 analysis/big_dataset.csv filter=lfs diff=lfs merge=lfs -text
 analysis/intermediate_results.csv filter=lfs diff=lfs merge=lfs -text
-analysis/row/error_analysis_big_dataset_clean.csv filter=lfs diff=lfs merge=lfs -text
+analysis/error_analysis_big_dataset_clean.csv filter=lfs diff=lfs merge=lfs -text
 analysis/row/error_types_relative_frequencies_with_text.csv filter=lfs diff=lfs merge=lfs -text
 analysis/row/error_types_relative_frequencies_with_text.pkl filter=lfs diff=lfs merge=lfs -text
 analysis/error_analysis_big_dataset_clean.csv filter=lfs diff=lfs merge=lfs -text
@@ -18,8 +18,8 @@ analysis/final_extraction/combined_Spanish.csv filter=lfs diff=lfs merge=lfs -te
 analysis/metric_error_position/classified_texts_Russian.csv filter=lfs diff=lfs merge=lfs -text
 analysis/final_extraction/combined_Russian.csv filter=lfs diff=lfs merge=lfs -text
 analysis/metric_error_position/classified_texts_by_error_position.csv filter=lfs diff=lfs merge=lfs -text
-error_types_relative_frequencies_big_dataset.csv filter=lfs diff=lfs merge=lfs -text
-error_types_relative_frequencies_big_dataset.pkl filter=lfs diff=lfs merge=lfs -text
+analysis/error_types_relative_frequencies_big_dataset.csv filter=lfs diff=lfs merge=lfs -text
+analysis/error_types_relative_frequencies_big_dataset.pkl filter=lfs diff=lfs merge=lfs -text
 error_types_relative_frequencies_with_text.csv filter=lfs diff=lfs merge=lfs -text
 error_types_relative_frequencies_with_text.pkl filter=lfs diff=lfs merge=lfs -text
 sequence_extracted_texts_Russian.csv filter=lfs diff=lfs merge=lfs -text
@@ -34,3 +34,4 @@ analysis/data_extraction/error_types_relative_frequencies_with_text.csv filter=l
 analysis/data_extraction/error_types_relative_frequencies_with_text.pkl filter=lfs diff=lfs merge=lfs -text
 analysis/metric_pos_sequences/POS_sequence_extracted_rows.csv filter=lfs diff=lfs merge=lfs -text
 analysis/metric_pos_sequences/sequence_extracted_texts_Russian.csv filter=lfs diff=lfs merge=lfs -text
+models/model1 filter=lfs diff=lfs merge=lfs -text
