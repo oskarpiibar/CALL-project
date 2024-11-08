@@ -124,14 +124,6 @@ def analyze_mistakes(original_text, corrected_text):
 def home():
  return render_template('page.html')
 
-@app.route('/hello')
-def hello():
-    return "Hello, World!"
-
-@app.route('/test_post', methods=['GET','POST'])
-def test_post():
-    return jsonify({"message": "POST request successful"})
-
 @app.route('/correct_text', methods=['GET', 'POST'])
 def correct_text_route():
     print("Route accessed")
@@ -144,9 +136,9 @@ def correct_text_route():
             return jsonify({'error': 'Missing text or language input.'}), 400
 
         if language == "Spanish":
-            model = '../models/spanish'
+            model = '../models/model_spanish'
         elif language == "Chinese (Mandarin)":
-            model = '../models/chinese'
+            model = '../models/model_chinese'
 
         else:
             return jsonify({'error': f"Model for '{language}' not found."}), 400
