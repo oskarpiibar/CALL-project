@@ -12,7 +12,6 @@ analysis/metric_rel_frequency/error_types_relative_frequencies_big_dataset.pkl f
 analysis/metric_rel_frequency/error_types_relative_frequencies_with_text.pkl filter=lfs diff=lfs merge=lfs -text
 analysis/metric_rel_frequency/error_types_relative_frequencies_big_dataset.csv filter=lfs diff=lfs merge=lfs -text
 analysis/POS[[:space:]]sequences/sequence_extracted_texts_Russian_4.csv filter=lfs diff=lfs merge=lfs -text
-models/spanish_model1 filter=lfs diff=lfs merge=lfs -text
 analysis/final_extraction/combined_Chinese.csv filter=lfs diff=lfs merge=lfs -text
 analysis/final_extraction/combined_Spanish.csv filter=lfs diff=lfs merge=lfs -text
 analysis/metric_error_position/classified_texts_Russian.csv filter=lfs diff=lfs merge=lfs -text
@@ -35,3 +34,5 @@ analysis/data_extraction/error_types_relative_frequencies_with_text.pkl filter=l
 analysis/metric_pos_sequences/POS_sequence_extracted_rows.csv filter=lfs diff=lfs merge=lfs -text
 analysis/metric_pos_sequences/sequence_extracted_texts_Russian.csv filter=lfs diff=lfs merge=lfs -text
 models/model1 filter=lfs diff=lfs merge=lfs -text
+models/model_chinese filter=lfs diff=lfs merge=lfs -text
+models/model_spanish filter=lfs diff=lfs merge=lfs -text
