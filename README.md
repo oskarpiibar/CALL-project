@@ -8,3 +8,5 @@ To run the model on your local machine:
 4. Then you can open the web app through the http link that appears in the terminal
 5. Choose a native language and click the correct button
 6. The corrected text will appear in a moment with the analyzed mistakes.
+
+It might be necessary to set up a venv and install some necessary imports to run the file
